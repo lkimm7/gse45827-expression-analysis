@@ -1,6 +1,5 @@
 # ============================================================
 # Gene Expression Analysis — Day 2: Normalize & Visualize
-# Run this after day1_load_explore.py
 # ============================================================
 
 import pandas as pd
@@ -10,13 +9,12 @@ import matplotlib
 matplotlib.use('Agg')
 import seaborn as sns
 
-# ── 1. LOAD CLEANED DATA ────────────────────────────────────
+# ── 1. LOAD CLEANED DATA 
 df = pd.read_csv("gse45827_clean.csv", index_col=0)
 print(f"Loaded cleaned data: {df.shape[0]} genes x {df.shape[1]} samples")
 
 # ── 2. NORMALIZE: Z-score per gene ──────────────────────────
 # Z-score normalization centers each gene at 0 with std=1
-# This lets us compare genes that have very different baseline levels
 df_norm = df.subtract(df.mean(axis=1), axis=0).divide(df.std(axis=1), axis=0)
 
 print("\nNormalization complete.")
@@ -32,7 +30,7 @@ df_top = df_norm.loc[top_genes]
 
 print(f"\nTop 50 high-variance genes selected for heatmap.")
 
-# ── 4. PLOT: Heatmap of top 50 genes ────────────────────────
+# ── 4. PLOT: Heatmap of top 50 genes 
 fig, ax = plt.subplots(figsize=(14, 10))
 
 heatmap = ax.imshow(
