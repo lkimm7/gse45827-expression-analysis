@@ -11,8 +11,13 @@ import matplotlib
 matplotlib.use('Agg')  # Saves plots as files instead of opening windows
 
 # ── 1. LOAD THE DATA ────────────────────────────────────────
-# The dataset has genes as rows and samples (patients) as columns
-df = pd.read_csv("gse45827.csv", index_col=0)
+# GEO series matrix files have metadata lines starting with "!"
+# We skip those and read only the actual expression data
+import gzip
+
+# Data starts at line 69 (after all the "!" metadata lines)
+print("Loading data from line 69...")
+df = pd.read_csv("gse45827.csv", skiprows=68, index_col=0, sep="\t")
 
 print("=== Dataset Overview ===")
 print(f"Number of genes:   {df.shape[0]}")
