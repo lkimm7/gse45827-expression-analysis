@@ -1,6 +1,5 @@
 # ============================================================
 # Gene Expression Analysis — Day 3: Clustering & Summary
-# Run this after day2_normalize_visualize.py
 # ============================================================
 
 import pandas as pd
@@ -12,7 +11,7 @@ from sklearn.decomposition import PCA
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
 
-# ── 1. LOAD NORMALIZED DATA ─────────────────────────────────
+
 df = pd.read_csv("gse45827_normalized.csv", index_col=0)
 print(f"Loaded normalized data: {df.shape[0]} genes x {df.shape[1]} samples")
 
@@ -20,8 +19,6 @@ print(f"Loaded normalized data: {df.shape[0]} genes x {df.shape[1]} samples")
 df_T = df.T   # shape: samples x genes
 
 # ── 2. PCA: Reduce to 2 dimensions ──────────────────────────
-# PCA finds the directions of maximum variation in the data.
-# Plotting the first 2 components lets us SEE how samples cluster.
 pca = PCA(n_components=2, random_state=42)
 pca_coords = pca.fit_transform(df_T.fillna(0))
 
@@ -62,8 +59,7 @@ plt.tight_layout()
 plt.savefig("day3_pca_clusters.png", dpi=150)
 print("Plot saved: day3_pca_clusters.png")
 
-# ── 5. PLOT: Summary figure (3 panels) ───────────────────────
-# This is the "hero" figure you'd show Dr. Park as a work sample
+# ── 5. PLOT: Summary figure (3 panels)
 fig2, axes = plt.subplots(1, 3, figsize=(16, 5))
 fig2.suptitle("Gene Expression Analysis — Summary", fontsize=14, fontweight='bold')
 
